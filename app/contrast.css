@@ -1,0 +1,12 @@
+.instagram-box > img {
+  position: relative;
+  z-index: 1;
+  padding: 22px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, #f7f7f4 0%, #d6d8d9 38%, #8b9197 61%, rgba(16, 18, 22, 0) 72%);
+  filter: drop-shadow(0 16px 24px rgba(0, 0, 0, .32));
+}
+
+@media (max-width: 600px) {
+  .instagram-box > img { padding: 16px; }
+}
