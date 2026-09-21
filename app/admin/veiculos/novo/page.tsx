@@ -1,0 +1,1 @@
+import {AdminShell} from '@/components/admin-shell';import {AdminVehicleForm} from '@/components/admin-vehicle-form';export default function NewVehicle(){return <AdminShell><div className="eyebrow">Estoque</div><h1 className="display" style={{fontSize:58,margin:'8px 0 30px'}}>Adicionar veículo</h1><AdminVehicleForm/></AdminShell>}

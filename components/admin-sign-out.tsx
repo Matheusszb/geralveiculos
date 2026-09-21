@@ -1,0 +1,1 @@
+'use client';import {createClient} from '@/lib/supabase/client';import {useRouter} from 'next/navigation';export function AdminSignOut(){const router=useRouter();return <button style={{background:'transparent',border:0,color:'#afb3ba',padding:12,fontSize:13}} onClick={async()=>{await createClient().auth.signOut();router.push('/admin/login')}}>Sair</button>}

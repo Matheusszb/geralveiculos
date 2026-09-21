@@ -1,0 +1,1 @@
+import {MessageCircle} from 'lucide-react';import {site} from '@/lib/config';export function WhatsappFloat(){return <a className="whatsapp" href={site.whatsapp} target="_blank" aria-label="Falar no WhatsApp" title="Falar no WhatsApp"><MessageCircle size={26}/></a>}

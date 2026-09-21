@@ -1,0 +1,1 @@
+export const money=(value:number)=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0}).format(value);export const km=(value:number|null)=>value===null?'—':new Intl.NumberFormat('pt-BR').format(value)+' km';

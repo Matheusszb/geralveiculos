@@ -1,0 +1,1 @@
+import Link from 'next/link';export default function NotFound(){return <main className="login"><div className="login-card"><h1 className="display" style={{fontSize:54}}>Veículo não encontrado</h1><Link className="btn" href="/veiculos">Ver estoque</Link></div></main>}

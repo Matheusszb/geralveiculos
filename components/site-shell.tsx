@@ -1,0 +1,1 @@
+import {SiteHeader} from './site-header';import {SiteFooter} from './site-footer';import {WhatsappFloat} from './whatsapp-float';export function SiteShell({children}:{children:React.ReactNode}){return <><SiteHeader/>{children}<SiteFooter/><WhatsappFloat/></>}
