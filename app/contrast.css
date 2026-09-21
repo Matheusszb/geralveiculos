@@ -10,3 +10,27 @@
 @media (max-width: 600px) {
   .instagram-box > img { padding: 16px; }
 }
+
+@media (min-width: 901px) {
+  .header .wrap {
+    width: 100%;
+    max-width: none;
+    padding: 0 32px;
+  }
+
+  .header .nav {
+    flex: 1;
+    justify-content: center;
+    gap: clamp(20px, 2vw, 38px);
+  }
+
+  .header .brand { margin-right: 28px; }
+  .header .btn { margin-left: 28px; }
+
+  .hero .wrap {
+    width: 100%;
+    max-width: none;
+    padding-left: clamp(40px, 6vw, 112px);
+    padding-right: 40px;
+  }
+}
