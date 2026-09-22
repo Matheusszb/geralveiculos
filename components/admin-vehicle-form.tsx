@@ -5,7 +5,16 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import type { Vehicle } from '@/lib/types';
 
-const options = ['Ar-condicionado', 'Direção elétrica', 'Vidros elétricos', 'Travas elétricas', 'Multimídia', 'Bluetooth', 'Câmera de ré', 'Sensor de estacionamento', 'Bancos em couro', 'Airbags', 'ABS', 'Controle de estabilidade', 'Piloto automático'];
+const options = [
+  'Ar-condicionado', 'Ar-condicionado digital', 'Direção elétrica', 'Vidros elétricos', 'Travas elétricas',
+  'Alarme', 'Chave presencial / Keyless', 'Partida por botão', 'Computador de bordo', 'Volante multifuncional',
+  'Controle de som no volante', 'Multimídia', 'Central multimídia', 'Apple CarPlay / Android Auto', 'GPS',
+  'Bluetooth', 'Sensor de chuva', 'Farol de neblina', 'Faróis de LED', 'Retrovisores elétricos',
+  'Retrovisores rebatíveis eletricamente', 'Rodas de liga leve', 'Controle de tração', 'Controle de estabilidade',
+  'Freios ABS', 'Airbags', 'Câmera de ré', 'Câmera 360°', 'Sensor de estacionamento', 'Sensor dianteiro',
+  'Sensor traseiro', 'Teto solar', 'Bancos em couro', 'Bancos elétricos', 'Ajuste de altura do banco do motorista',
+  'Piloto automático', 'Piloto automático adaptativo',
+];
 type Editable = Record<string, string | number | undefined>;
 type GalleryItem = { key: string; id?: string; file?: File; url: string; x: number; y: number };
 const parsePosition = (position?: string | null) => { const match = position?.match(/(\d+)%\s+(\d+)%/); return { x: Number(match?.[1] || 50), y: Number(match?.[2] || 50) }; };
