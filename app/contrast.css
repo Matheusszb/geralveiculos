@@ -7,6 +7,18 @@
   filter: drop-shadow(0 16px 24px rgba(0, 0, 0, .32));
 }
 
+/* Movimento discreto da marca e partículas da seção Sobre. */
+.about-visual-animated { isolation: isolate; }
+.about-visual-animated::after { content: ''; position: absolute; z-index: 0; width: 58%; aspect-ratio: 1; border: 1px solid rgba(255,255,255,.24); border-radius: 50%; box-shadow: 0 0 55px rgba(255,255,255,.18), inset 0 0 46px rgba(255,255,255,.08); animation: about-ring-breathe 5.5s ease-in-out infinite; }
+.about-logo-float { z-index: 2 !important; animation: about-logo-float 5.5s ease-in-out infinite; will-change: transform; }
+.about-particles { position: absolute; z-index: 1; inset: 0; overflow: hidden; pointer-events: none; }
+.about-particles span { position: absolute; width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,.82); box-shadow: 0 0 10px rgba(255,255,255,.8); animation: about-particle-drift 7s ease-in-out infinite; }
+.about-particles span:nth-child(1) { top: 13%; left: 13%; animation-delay: -1s; }.about-particles span:nth-child(2) { top: 21%; left: 73%; width: 3px; height: 3px; animation-delay: -3.2s; }.about-particles span:nth-child(3) { top: 67%; left: 12%; width: 3px; height: 3px; animation-delay: -4.8s; }.about-particles span:nth-child(4) { top: 81%; left: 72%; animation-delay: -2s; }.about-particles span:nth-child(5) { top: 39%; left: 7%; width: 2px; height: 2px; animation-delay: -5s; }.about-particles span:nth-child(6) { top: 49%; left: 89%; width: 3px; height: 3px; animation-delay: -1.4s; }.about-particles span:nth-child(7) { top: 8%; left: 48%; width: 2px; height: 2px; animation-delay: -4s; }.about-particles span:nth-child(8) { top: 91%; left: 39%; width: 3px; height: 3px; animation-delay: -3s; }.about-particles span:nth-child(9) { top: 28%; left: 86%; width: 2px; height: 2px; animation-delay: -5.6s; }.about-particles span:nth-child(10) { top: 75%; left: 88%; animation-delay: -.8s; }.about-particles span:nth-child(11) { top: 57%; left: 24%; width: 2px; height: 2px; animation-delay: -2.5s; }.about-particles span:nth-child(12) { top: 30%; left: 31%; width: 3px; height: 3px; animation-delay: -4.3s; }.about-particles span:nth-child(13) { top: 14%; left: 61%; width: 2px; height: 2px; animation-delay: -1.8s; }.about-particles span:nth-child(14) { top: 88%; left: 58%; width: 3px; height: 3px; animation-delay: -5.1s; }
+@keyframes about-logo-float { 0%,100% { transform: translate3d(0, 0, 0) scale(1); } 50% { transform: translate3d(0, -12px, 0) scale(1.018); } }
+@keyframes about-ring-breathe { 0%,100% { transform: scale(.94); opacity: .38; } 50% { transform: scale(1.05); opacity: .76; } }
+@keyframes about-particle-drift { 0%,100% { transform: translate3d(0, 0, 0) scale(.7); opacity: .18; } 50% { transform: translate3d(13px, -22px, 0) scale(1.15); opacity: .92; } }
+@media (prefers-reduced-motion: reduce) { .about-visual-animated::after, .about-logo-float, .about-particles span { animation: none; } }
+
 .featured-stock-link { padding: 16px 22px; box-shadow: 0 8px 18px rgba(197,31,43,.2); }
 .featured-stock-cta { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 34px; padding: 30px 34px; background: #101216; color: #fff; border-left: 5px solid #c51f2b; }.featured-stock-cta h3 { margin: 7px 0 0; font-size: clamp(30px,4vw,46px); }.featured-stock-cta .btn { padding: 18px 25px; font-size: 13px; white-space: nowrap; box-shadow: 0 10px 24px rgba(0,0,0,.25); }
 
