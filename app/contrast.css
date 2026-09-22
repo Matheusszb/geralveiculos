@@ -81,6 +81,7 @@ img, video { max-width: 100%; }
 .stock-meta { display: flex; justify-content: space-between; gap: 8px; margin: 15px 0 12px; padding-top: 11px; border-top: 1px solid #eceeec; color: #666c71; font-size: 11px; }.stock-note { margin: 0 0 12px; color: #5a6065; font-size: 11px; font-style: italic; }
 .stock-status { display: block; color: #5f656a; font-size: 11px; font-weight: 800; }.stock-status select { display: block; width: 100%; margin-top: 5px; padding: 9px; border: 1px solid #d9dcda; background: #fff; }
 .stock-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 15px; }.stock-actions button { display: inline-flex; align-items: center; gap: 5px; padding: 0; border: 0; color: #c51f2b; background: transparent; font-size: 11px; cursor: pointer; }.stock-actions button:disabled { opacity: .5; }.stock-empty { margin: 0; padding: 20px 16px; color: #73787d; font-size: 12px; }
+.seller-intro { margin: 0 0 26px; }.seller-form { max-width: 760px; }.seller-form small { display: block; margin-top: 7px; color: #6e7378; font-size: 11px; }.seller-error,.seller-success { margin: 18px 0; font-size: 13px; }.seller-error { color: #c51f2b; }.seller-success { color: #167442; }
 
 @media (max-width: 900px) {
   .stock-board { grid-template-columns: 1fr; }

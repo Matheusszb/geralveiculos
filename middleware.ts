@@ -25,6 +25,10 @@ export async function middleware(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser();
   const privateAdminRoute = request.nextUrl.pathname.startsWith('/admin') && !request.nextUrl.pathname.startsWith('/admin/login');
   if (privateAdminRoute && !user) return NextResponse.redirect(new URL('/admin/login', request.url));
+  if (privateAdminRoute && user) {
+    const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+    if (!profile || !['admin', 'seller'].includes(profile.role)) return NextResponse.redirect(new URL('/admin/login', request.url));
+  }
   return response;
 }
 

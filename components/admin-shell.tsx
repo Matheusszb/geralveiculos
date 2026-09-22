@@ -10,6 +10,7 @@ const links = [
   ['Dashboard', '/admin'],
   ['Veículos', '/admin/veiculos'],
   ['Adicionar veículo', '/admin/veiculos/novo'],
+  ['Vendedores', '/admin/vendedores'],
   ['Leads', '/admin/leads'],
   ['Configurações', '/admin/configuracoes'],
   ['Ver site', '/'],
