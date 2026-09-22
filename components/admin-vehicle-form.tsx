@@ -6,12 +6,12 @@ import { createClient } from '@/lib/supabase/client';
 import type { Vehicle } from '@/lib/types';
 
 const options = [
-  'Ar-condicionado', 'Ar-condicionado digital', 'Direção elétrica', 'Vidros elétricos', 'Travas elétricas',
+  'Ar-condicionado', 'Ar-condicionado digital', 'Vidros elétricos', 'Travas elétricas',
   'Alarme', 'Chave presencial / Keyless', 'Partida por botão', 'Computador de bordo', 'Volante multifuncional',
-  'Controle de som no volante', 'Multimídia', 'Central multimídia', 'Apple CarPlay / Android Auto', 'GPS',
+  'Controle de som no volante', 'Central multimídia', 'Apple CarPlay / Android Auto', 'GPS',
   'Bluetooth', 'Sensor de chuva', 'Farol de neblina', 'Faróis de LED', 'Retrovisores elétricos',
   'Retrovisores rebatíveis eletricamente', 'Rodas de liga leve', 'Controle de tração', 'Controle de estabilidade',
-  'Freios ABS', 'Airbags', 'Câmera de ré', 'Câmera 360°', 'Sensor de estacionamento', 'Sensor dianteiro',
+  'Freios ABS', 'Airbags', 'Câmera de ré', 'Câmera 360°', 'Sensor dianteiro',
   'Sensor traseiro', 'Teto solar', 'Bancos em couro', 'Bancos elétricos', 'Ajuste de altura do banco do motorista',
   'Piloto automático', 'Piloto automático adaptativo',
 ];
