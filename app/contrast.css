@@ -69,6 +69,22 @@ img, video { max-width: 100%; }
 .gallery-actions .remove-photo { color: #c91927; }
 .gallery-item > label { display: block; margin-top: 8px; color: #52565b; font-size: 11px; font-weight: 700; }
 .gallery-item input[type='range'] { width: 100%; height: 22px; padding: 0; accent-color: #cc1f2b; }
+.stock-search { display: flex; align-items: center; gap: 10px; max-width: 520px; margin: 0 0 22px; padding: 0 13px; background: #fff; border: 1px solid #dfe1df; color: #73777b; }
+.stock-search input { width: 100%; min-width: 0; padding: 14px 0; border: 0; outline: 0; background: transparent; }
+.stock-board { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; align-items: start; }
+.stock-column { min-width: 0; background: #e9ebea; border: 1px solid #d9dcda; }
+.stock-column > header { display: flex; align-items: center; justify-content: space-between; padding: 15px 16px; border-top: 4px solid #858b90; background: #fff; }
+.stock-column.available > header { border-color: #2d8a57; }.stock-column.reserved > header { border-color: #cc8a16; }.stock-column.sold > header { border-color: #c51f2b; }
+.stock-column h2 { margin: 0; font-size: 18px; }.stock-column > header span { display: grid; place-items: center; min-width: 25px; height: 25px; padding: 0 7px; border-radius: 999px; background: #eef0ee; font-size: 12px; font-weight: 800; }
+.stock-list { display: grid; gap: 12px; padding: 12px; }.stock-card { min-width: 0; padding: 15px; background: #fff; border: 1px solid #dfe1df; box-shadow: 0 2px 5px rgba(0,0,0,.035); }
+.stock-card-title { display: flex; justify-content: space-between; gap: 12px; }.stock-card-title small { color: #c51f2b; font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }.stock-card-title h3 { margin: 4px 0; font: 700 30px 'Barlow Condensed'; line-height: .95; }.stock-card-title p { margin: 5px 0 0; color: #6e7378; font-size: 12px; }.stock-card-title strong { flex: 0 0 auto; font-size: 13px; white-space: nowrap; }
+.stock-meta { display: flex; justify-content: space-between; gap: 8px; margin: 15px 0 12px; padding-top: 11px; border-top: 1px solid #eceeec; color: #666c71; font-size: 11px; }.stock-note { margin: 0 0 12px; color: #5a6065; font-size: 11px; font-style: italic; }
+.stock-status { display: block; color: #5f656a; font-size: 11px; font-weight: 800; }.stock-status select { display: block; width: 100%; margin-top: 5px; padding: 9px; border: 1px solid #d9dcda; background: #fff; }
+.stock-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 15px; }.stock-actions button { display: inline-flex; align-items: center; gap: 5px; padding: 0; border: 0; color: #c51f2b; background: transparent; font-size: 11px; cursor: pointer; }.stock-actions button:disabled { opacity: .5; }.stock-empty { margin: 0; padding: 20px 16px; color: #73787d; font-size: 12px; }
+
+@media (max-width: 900px) {
+  .stock-board { grid-template-columns: 1fr; }
+}
 
 @media (max-width: 600px) {
   .admin-main { padding: 18px; overflow-x: hidden; }

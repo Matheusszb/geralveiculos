@@ -14,12 +14,12 @@ function withDefaultPosition(data: unknown) {
 export async function getVehicles(featured = false) {
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL) return [] as Vehicle[];
   const db = await createClient();
-  let query = db.from('vehicles').select(`*,${modernImages}`).or('status.eq.available,and(status.eq.sold,show_when_sold.eq.true)').order('created_at', { ascending: false });
+  let query = db.from('vehicles').select(`*,${modernImages}`).eq('status', 'available').order('created_at', { ascending: false });
   if (featured) query = query.eq('featured', true);
   const { data, error } = await query;
   if (!error) return withDefaultPosition(data);
 
-  let fallback = db.from('vehicles').select(`*,${legacyImages}`).or('status.eq.available,and(status.eq.sold,show_when_sold.eq.true)').order('created_at', { ascending: false });
+  let fallback = db.from('vehicles').select(`*,${legacyImages}`).eq('status', 'available').order('created_at', { ascending: false });
   if (featured) fallback = fallback.eq('featured', true);
   const { data: legacyData } = await fallback;
   return withDefaultPosition(legacyData);
@@ -37,9 +37,9 @@ export async function getAdminVehicles() {
 export async function getVehicle(slug: string) {
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL) return null;
   const db = await createClient();
-  const { data, error } = await db.from('vehicles').select(`*,${modernImages}`).eq('slug', slug).single();
+  const { data, error } = await db.from('vehicles').select(`*,${modernImages}`).eq('slug', slug).eq('status', 'available').single();
   if (!error) return withDefaultPosition([data])[0] || null;
-  const { data: legacyData } = await db.from('vehicles').select(`*,${legacyImages}`).eq('slug', slug).single();
+  const { data: legacyData } = await db.from('vehicles').select(`*,${legacyImages}`).eq('slug', slug).eq('status', 'available').single();
   return withDefaultPosition(legacyData ? [legacyData] : [])[0] || null;
 }
 
