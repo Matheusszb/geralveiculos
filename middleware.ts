@@ -28,6 +28,9 @@ export async function middleware(request: NextRequest) {
   if (privateAdminRoute && user) {
     const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
     if (!profile || !['admin', 'seller'].includes(profile.role)) return NextResponse.redirect(new URL('/admin/login', request.url));
+    const adminOnly = ['/admin/vendedores', '/admin/relatorios', '/admin/leads', '/admin/configuracoes'];
+    const editingVehicle = request.nextUrl.pathname.startsWith('/admin/veiculos/') && request.nextUrl.pathname !== '/admin/veiculos';
+    if (profile.role === 'seller' && (adminOnly.some(path => request.nextUrl.pathname.startsWith(path)) || editingVehicle)) return NextResponse.redirect(new URL('/admin', request.url));
   }
   return response;
 }

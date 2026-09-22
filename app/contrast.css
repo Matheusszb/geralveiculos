@@ -82,9 +82,13 @@ img, video { max-width: 100%; }
 .stock-status { display: block; color: #5f656a; font-size: 11px; font-weight: 800; }.stock-status select { display: block; width: 100%; margin-top: 5px; padding: 9px; border: 1px solid #d9dcda; background: #fff; }
 .stock-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 15px; }.stock-actions button { display: inline-flex; align-items: center; gap: 5px; padding: 0; border: 0; color: #c51f2b; background: transparent; font-size: 11px; cursor: pointer; }.stock-actions button:disabled { opacity: .5; }.stock-empty { margin: 0; padding: 20px 16px; color: #73787d; font-size: 12px; }
 .seller-intro { margin: 0 0 26px; }.seller-form { max-width: 760px; }.seller-form small { display: block; margin-top: 7px; color: #6e7378; font-size: 11px; }.seller-error,.seller-success { margin: 18px 0; font-size: 13px; }.seller-error { color: #c51f2b; }.seller-success { color: #167442; }
+.seller-performance { margin-top: 48px; }.seller-performance-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }.seller-performance-card { display: grid; gap: 7px; padding: 20px; border: 1px solid #dfe1df; background: #fff; color: #15171b; }.seller-performance-card small { color: #c51f2b; font-weight: 800; text-transform: uppercase; letter-spacing: .09em; }.seller-performance-card strong { font: 700 29px 'Barlow Condensed'; }.seller-performance-card span { color: #62686d; font-size: 13px; }
+.sale-vehicle-summary { display: flex; gap: 18px; align-items: center; padding-bottom: 22px; margin-bottom: 22px; border-bottom: 1px solid #e0e2e0; }.sale-vehicle-summary img { width: 170px; height: 110px; object-fit: cover; }.sale-vehicle-summary h2 { margin: 4px 0; font-size: 38px; }.sale-vehicle-summary p { margin: 5px 0; color: #63686d; }.sale-form-actions { display: flex; gap: 12px; margin-top: 24px; }.sale-form-actions .btn { border-width: 1px; }
+.sales-filters { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }.sales-filters .stock-search { flex: 1 1 300px; margin: 0; }.sales-filters select,.sales-filters > input { min-height: 48px; padding: 0 11px; border: 1px solid #dfe1df; background: #fff; }.export-button { display: inline-flex; align-items: center; gap: 6px; min-height: 48px; padding: 0 14px; border: 1px solid #dfe1df; background: #fff; cursor: pointer; font-weight: 800; font-size: 12px; }.sales-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 15px; padding: 14px 16px; margin-bottom: 16px; border: 1px solid #dfe1df; background: #fff; font-size: 12px; }.sales-summary strong { font-size: 18px; }.sales-table-wrap { overflow-x: auto; }.sales-table { min-width: 860px; margin-top: 0; }.sales-table small { color: #6b7076; }.discount { color: #bc6b11; }.sale-status { display: inline-block; padding: 5px 7px; font-size: 10px; font-weight: 800; text-transform: uppercase; }.sale-status.completed { background: #dff2e6; color: #176d42; }.sale-status.cancelled { background: #f7e0e2; color: #a31f2a; }.cancel-sale { display: inline-flex; align-items: center; gap: 5px; padding: 0; border: 0; background: transparent; color: #c51f2b; cursor: pointer; font-size: 12px; }.dashboard-links { display: flex; gap: 12px; margin-top: 26px; }.dashboard-recent { max-width: 780px; margin-top: 42px; }.dashboard-recent h2 { margin: 8px 0 14px; font-size: 40px; }.recent-sale { display: grid; grid-template-columns: 1fr auto auto; gap: 16px; align-items: center; padding: 14px 0; border-bottom: 1px solid #dfe1df; }.recent-sale small { color: #6b7076; }
 
 @media (max-width: 900px) {
   .stock-board { grid-template-columns: 1fr; }
+  .seller-performance-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 600px) {
@@ -95,6 +99,10 @@ img, video { max-width: 100%; }
   .admin-main .form-card .full > div[style] label input[type='checkbox'] { margin-top: 1px; }
   .gallery-head { align-items: flex-start; flex-direction: column; gap: 4px; }
   .gallery-grid { grid-template-columns: 1fr; }
+  .seller-performance-grid { grid-template-columns: 1fr; }
+  .sale-vehicle-summary { align-items: flex-start; flex-direction: column; }
+  .dashboard-links { align-items: stretch; flex-direction: column; }
+  .recent-sale { grid-template-columns: 1fr auto; }.recent-sale small { grid-column: 1 / -1; }
   .form-fields input, .form-fields textarea, .form-fields select { min-width: 0; max-width: 100%; }
   .admin-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
   .stat { padding: 16px; }

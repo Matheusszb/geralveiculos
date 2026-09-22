@@ -18,7 +18,7 @@ const statusLabels: Record<Vehicle['status'], string> = {
   available: 'Disponível', reserved: 'Reservado', sold: 'Vendido',
 };
 
-export function AdminVehicleBoard({ initialVehicles }: { initialVehicles: Vehicle[] }) {
+export function AdminVehicleBoard({ initialVehicles, isAdmin }: { initialVehicles: Vehicle[]; isAdmin: boolean }) {
   const router = useRouter();
   const [vehicles, setVehicles] = useState(initialVehicles);
   const [search, setSearch] = useState('');
@@ -60,8 +60,8 @@ export function AdminVehicleBoard({ initialVehicles }: { initialVehicles: Vehicl
           <div className="stock-card-title"><div><small>{vehicle.brand}</small><h3>{vehicle.model}</h3>{vehicle.version && <p>{vehicle.version}</p>}</div><strong>{money(vehicle.price)}</strong></div>
           <div className="stock-meta"><span>{vehicle.year}/{vehicle.model_year}</span><span>Placa final: {vehicle.plate_end || '—'}</span></div>
           {vehicle.internal_notes && <p className="stock-note">Anotações internas cadastradas</p>}
-          <label className="stock-status">Status<select value={vehicle.status} disabled={savingId === vehicle.id} onChange={event => changeStatus(vehicle, event.target.value as Vehicle['status'])}>{columns.map(option => <option value={option.status} key={option.status}>{statusLabels[option.status]}</option>)}</select></label>
-          <div className="stock-actions"><Link className="thin-link" href={`/admin/veiculos/${vehicle.id}`}>Editar e anotações</Link><button type="button" onClick={() => remove(vehicle)} disabled={savingId === vehicle.id} aria-label={`Excluir ${vehicle.brand} ${vehicle.model}`}><Trash2 size={15} /> Excluir</button></div>
+          {isAdmin && vehicle.status !== 'sold' ? <label className="stock-status">Status<select value={vehicle.status} disabled={savingId === vehicle.id} onChange={event => changeStatus(vehicle, event.target.value as Vehicle['status'])}><option value="available">Disponível</option><option value="reserved">Reservado</option></select></label> : <p className="stock-status-readonly">Status: <b>{statusLabels[vehicle.status]}</b></p>}
+          <div className="stock-actions">{vehicle.status === 'available' && <Link className="thin-link" href={`/admin/vendas/registrar/${vehicle.id}`}>Registrar venda</Link>}{isAdmin && <Link className="thin-link" href={`/admin/veiculos/${vehicle.id}`}>Editar e anotações</Link>}{isAdmin && <button type="button" onClick={() => remove(vehicle)} disabled={savingId === vehicle.id} aria-label={`Excluir ${vehicle.brand} ${vehicle.model}`}><Trash2 size={15} /> Excluir</button>}</div>
         </article>)}</div>
         {!items.length && <p className="stock-empty">{column.empty}</p>}
       </section>;
