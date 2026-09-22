@@ -25,7 +25,7 @@ export default async function Detail({ params }: { params: { slug: string } }) {
   const specs = [
     ['Marca', vehicle.brand], ['Modelo', vehicle.model], ['Versão', vehicle.version],
     ['Ano fabricação', vehicle.year], ['Ano modelo', vehicle.model_year], ['Quilometragem', km(vehicle.mileage)],
-    ['Câmbio', vehicle.transmission], ['Combustível', vehicle.fuel], ['Cor', vehicle.color],
+    ['Câmbio', vehicle.transmission], ['Tipo de direção', vehicle.steering_type], ['Combustível', vehicle.fuel], ['Cor', vehicle.color],
     ['Portas', vehicle.doors], ['Final da placa', vehicle.plate_end],
   ].filter(([, value]) => value !== null && value !== undefined);
 
