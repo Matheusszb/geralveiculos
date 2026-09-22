@@ -47,3 +47,20 @@
   .admin-side nav.admin-nav.open { display: flex; position: absolute; top: 82px; left: 0; right: 0; flex-direction: column; padding: 14px 22px 22px; background: #101216; border-top: 1px solid rgba(255,255,255,.12); box-shadow: 0 14px 28px rgba(0,0,0,.25); }
   .admin-side nav.admin-nav.open a, .admin-side nav.admin-nav.open button { width: 100%; text-align: left; padding: 14px 4px; border-bottom: 1px solid rgba(255,255,255,.08); }
 }
+
+html, body { max-width: 100%; overflow-x: hidden; }
+img, video { max-width: 100%; }
+.admin-main, .form-fields, .form-fields > * { min-width: 0; }
+.form-fields input[type='checkbox'] { width: 22px; min-width: 22px; height: 22px; padding: 0; margin: 0; flex: 0 0 22px; }
+.form-fields input[type='file'] { min-width: 0; max-width: 100%; font-size: 12px; }
+
+@media (max-width: 600px) {
+  .admin-main { padding: 18px; overflow-x: hidden; }
+  .admin-main .form-card { padding: 20px; overflow: hidden; }
+  .admin-main .form-card .full > div[style] { grid-template-columns: 1fr !important; }
+  .admin-main .form-card .full > div[style] label { min-width: 0; align-items: flex-start !important; line-height: 1.35; }
+  .admin-main .form-card .full > div[style] label input[type='checkbox'] { margin-top: 1px; }
+  .form-fields input, .form-fields textarea, .form-fields select { min-width: 0; max-width: 100%; }
+  .admin-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat { padding: 16px; }
+}
