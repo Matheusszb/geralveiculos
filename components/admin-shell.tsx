@@ -11,7 +11,6 @@ const links = [
   ['Veículos', '/admin/veiculos'],
   ['Adicionar veículo', '/admin/veiculos/novo'],
   ['Vendas', '/admin/vendas'],
-  ['Relatórios', '/admin/relatorios'],
   ['Vendedores', '/admin/vendedores'],
   ['Leads', '/admin/leads'],
   ['Configurações', '/admin/configuracoes'],
