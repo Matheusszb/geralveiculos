@@ -15,12 +15,12 @@ export async function getVehicles(featured = false) {
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL) return [] as Vehicle[];
   const db = await createClient();
   let query = db.from('vehicles').select(`*,${modernImages}`).eq('status', 'available').order('created_at', { ascending: false });
-  if (featured) query = query.eq('featured', true);
+  if (featured) query = query.eq('featured', true).limit(9);
   const { data, error } = await query;
   if (!error) return withDefaultPosition(data);
 
   let fallback = db.from('vehicles').select(`*,${legacyImages}`).eq('status', 'available').order('created_at', { ascending: false });
-  if (featured) fallback = fallback.eq('featured', true);
+  if (featured) fallback = fallback.eq('featured', true).limit(9);
   const { data: legacyData } = await fallback;
   return withDefaultPosition(legacyData);
 }

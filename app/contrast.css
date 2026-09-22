@@ -7,8 +7,13 @@
   filter: drop-shadow(0 16px 24px rgba(0, 0, 0, .32));
 }
 
+.featured-stock-link { padding: 16px 22px; box-shadow: 0 8px 18px rgba(197,31,43,.2); }
+.featured-stock-cta { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 34px; padding: 30px 34px; background: #101216; color: #fff; border-left: 5px solid #c51f2b; }.featured-stock-cta h3 { margin: 7px 0 0; font-size: clamp(30px,4vw,46px); }.featured-stock-cta .btn { padding: 18px 25px; font-size: 13px; white-space: nowrap; box-shadow: 0 10px 24px rgba(0,0,0,.25); }
+
 @media (max-width: 600px) {
   .instagram-box > img { padding: 16px; }
+  .featured-stock-link { width: 100%; }
+  .featured-stock-cta { align-items: stretch; flex-direction: column; padding: 24px; }.featured-stock-cta .btn { width: 100%; }
 }
 
 @media (min-width: 901px) {

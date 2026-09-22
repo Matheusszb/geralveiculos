@@ -52,6 +52,10 @@ export function AdminVehicleBoard({ initialVehicles, isAdmin }: { initialVehicle
 
   async function toggleFeatured(vehicle: Vehicle) {
     const featured = !vehicle.featured;
+    if (featured && vehicles.filter(item => item.status === 'available' && item.featured).length >= 9) {
+      alert('Você já possui 9 veículos em destaque. Remova um destaque antes de adicionar outro.');
+      return;
+    }
     setSavingId(vehicle.id);
     setVehicles(items => items.map(item => item.id === vehicle.id ? { ...item, featured } : item));
     const { error } = await createClient().from('vehicles').update({ featured }).eq('id', vehicle.id);
