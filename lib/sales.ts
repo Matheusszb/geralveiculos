@@ -33,7 +33,11 @@ export async function getSales() {
   if (!process.env.NEXT_PUBLIC_SUPABASE_URL) return [] as Sale[];
   const db = await createClient();
   const { data } = await db.from('sales').select('id,vehicle_id,seller_id,advertised_price,sale_price,sale_date,customer_name,notes,status,created_at,cancelled_at,vehicle:vehicles!sales_vehicle_id_fkey(brand,model,version,year,plate_end,cover_image),seller:profiles!sales_seller_id_fkey(id,full_name)').order('sale_date', { ascending: false }).order('created_at', { ascending: false });
-  return (data || []) as Sale[];
+  return (data || []).map(row => ({
+    ...row,
+    vehicle: Array.isArray(row.vehicle) ? row.vehicle[0] || null : row.vehicle,
+    seller: Array.isArray(row.seller) ? row.seller[0] || null : row.seller,
+  })) as unknown as Sale[];
 }
 
 export function salesMetrics(sales: Sale[], monthOnly = false) {
