@@ -2,7 +2,7 @@
 
 import { Download, Search, XCircle } from 'lucide-react';
 import { useMemo, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { money } from '@/lib/format';
 import type { Sale, Seller } from '@/lib/sales';
@@ -11,7 +11,7 @@ const dateLabel = (date: string) => new Intl.DateTimeFormat('pt-BR').format(new 
 const toDate = (date: string) => new Date(`${date}T12:00:00`);
 
 export function AdminSalesHistory({ initialSales, sellers, isAdmin, exportEnabled = false }: { initialSales: Sale[]; sellers: Seller[]; isAdmin: boolean; exportEnabled?: boolean }) {
-  const router = useRouter(); const searchParams = useSearchParams();
+  const router = useRouter();
   const [sales, setSales] = useState(initialSales); const [search, setSearch] = useState(''); const [sellerId, setSellerId] = useState(''); const [status, setStatus] = useState('all'); const [period, setPeriod] = useState('all'); const [from, setFrom] = useState(''); const [to, setTo] = useState(''); const [busyId, setBusyId] = useState<string | null>(null);
   const filtered = useMemo(() => {
     const now = new Date(); const term = search.toLocaleLowerCase('pt-BR');
@@ -45,6 +45,6 @@ export function AdminSalesHistory({ initialSales, sellers, isAdmin, exportEnable
   }
 
   return <><div className="sales-filters"><label className="stock-search"><Search size={18} /><input value={search} onChange={event => setSearch(event.target.value)} placeholder="Buscar veículo, vendedor ou placa" /></label>{isAdmin && <select value={sellerId} onChange={event => setSellerId(event.target.value)}><option value="">Todos os vendedores</option>{sellers.map(seller => <option value={seller.id} key={seller.id}>{seller.full_name || 'Sem nome'}</option>)}</select>}<select value={status} onChange={event => setStatus(event.target.value)}><option value="all">Todas as vendas</option><option value="completed">Concluídas</option><option value="cancelled">Canceladas</option></select><select value={period} onChange={event => setPeriod(event.target.value)}><option value="all">Todo período</option><option value="today">Hoje</option><option value="week">Esta semana</option><option value="month">Este mês</option><option value="year">Este ano</option><option value="custom">Período personalizado</option></select>{period === 'custom' && <><input type="date" value={from} onChange={event => setFrom(event.target.value)} /><input type="date" value={to} onChange={event => setTo(event.target.value)} /></>}{exportEnabled && <button className="export-button" onClick={exportCsv}><Download size={16} /> CSV</button>}</div>
-    {searchParams.get('success') && <p className="seller-success">{searchParams.get('success')}</p>}<div className="sales-summary"><span>{completed.length} vendas concluídas</span><strong>{money(total)}</strong><span>Ticket médio: {money(completed.length ? total / completed.length : 0)}</span></div>
+    <div className="sales-summary"><span>{completed.length} vendas concluídas</span><strong>{money(total)}</strong><span>Ticket médio: {money(completed.length ? total / completed.length : 0)}</span></div>
     <div className="sales-table-wrap"><table className="admin-table sales-table"><thead><tr><th>Veículo</th><th>Vendedor</th><th>Anunciado</th><th>Vendido</th><th>Diferença</th><th>Data</th><th>Status</th>{isAdmin && <th>Ações</th>}</tr></thead><tbody>{filtered.map(sale => { const difference = Number(sale.advertised_price) - Number(sale.sale_price); return <tr key={sale.id}><td><b>{sale.vehicle?.brand} {sale.vehicle?.model}</b><br /><small>{sale.vehicle?.year} · placa final {sale.vehicle?.plate_end || '—'}</small></td><td>{sale.seller?.full_name || 'Vendedor'}</td><td>{money(Number(sale.advertised_price))}</td><td>{money(Number(sale.sale_price))}</td><td className={difference > 0 ? 'discount' : ''}>{difference > 0 ? `Desconto ${money(difference)}` : difference < 0 ? `+${money(Math.abs(difference))}` : '—'}</td><td>{dateLabel(sale.sale_date)}</td><td><span className={`sale-status ${sale.status}`}>{sale.status === 'completed' ? 'Concluída' : 'Cancelada'}</span></td>{isAdmin && <td>{sale.status === 'completed' && <button className="cancel-sale" disabled={busyId === sale.id} onClick={() => cancel(sale)}><XCircle size={15} /> Cancelar</button>}</td>}</tr>; })}</tbody></table></div>{!filtered.length && <p className="text-muted">Nenhuma venda encontrada com estes filtros.</p>}</>;
 }
