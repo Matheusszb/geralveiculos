@@ -9,7 +9,7 @@ import type { Seller } from '@/lib/sales';
 
 type SaleVehicle = { id: string; brand: string; model: string; version: string | null; year: number; price: number; cover_image: string | null };
 
-export function SaleRegisterForm({ vehicle, sellers, currentSellerId, isAdmin }: { vehicle: SaleVehicle; sellers: Seller[]; currentSellerId: string; isAdmin: boolean }) {
+export function SaleRegisterForm({ vehicle, sellers, currentSellerId, isAdmin, onCancel, onSuccess }: { vehicle: SaleVehicle; sellers: Seller[]; currentSellerId: string; isAdmin: boolean; onCancel?: () => void; onSuccess?: () => void }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
@@ -27,6 +27,7 @@ export function SaleRegisterForm({ vehicle, sellers, currentSellerId, isAdmin }:
     setBusy(true);
     const { error: rpcError } = await createClient().rpc('record_sale', { p_vehicle_id: vehicle.id, p_seller_id: sellerId, p_sale_price: price, p_sale_date: date, p_customer_name: String(form.get('customer_name') || ''), p_notes: String(form.get('notes') || '') });
     if (rpcError) { setError(rpcError.message); setBusy(false); return; }
+    if (onSuccess) { onSuccess(); router.refresh(); return; }
     router.push('/admin/vendas?success=Venda registrada com sucesso.'); router.refresh();
   }
 
@@ -38,6 +39,6 @@ export function SaleRegisterForm({ vehicle, sellers, currentSellerId, isAdmin }:
       <label>Data da venda<input name="sale_date" type="date" defaultValue={today} disabled={!isAdmin} /></label><label>Cliente (opcional)<input name="customer_name" /></label>
       <label className="full">Observações (opcional)<textarea name="notes" /></label>
     </div>
-    {error && <p className="seller-error">{error}</p>}<div className="sale-form-actions"><button type="button" className="btn btn-outline" onClick={() => router.back()}>Cancelar</button><button className="btn" disabled={busy || (isAdmin && !sellers.length)}>{busy ? 'Registrando…' : 'Confirmar venda'}</button></div>
+    {error && <p className="seller-error">{error}</p>}<div className="sale-form-actions"><button type="button" className="btn btn-outline" onClick={() => onCancel ? onCancel() : router.back()}>Cancelar</button><button className="btn" disabled={busy || (isAdmin && !sellers.length)}>{busy ? 'Registrando…' : 'Confirmar venda'}</button></div>
   </form>;
 }
