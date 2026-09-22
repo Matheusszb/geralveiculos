@@ -50,6 +50,18 @@ export function AdminVehicleBoard({ initialVehicles, isAdmin }: { initialVehicle
     setSavingId(null);
   }
 
+  async function toggleFeatured(vehicle: Vehicle) {
+    const featured = !vehicle.featured;
+    setSavingId(vehicle.id);
+    setVehicles(items => items.map(item => item.id === vehicle.id ? { ...item, featured } : item));
+    const { error } = await createClient().from('vehicles').update({ featured }).eq('id', vehicle.id);
+    if (error) {
+      setVehicles(items => items.map(item => item.id === vehicle.id ? vehicle : item));
+      alert(`Não foi possível atualizar o destaque: ${error.message}`);
+    } else router.refresh();
+    setSavingId(null);
+  }
+
   function exportCsv() {
     const rows = [['Veículo', 'Versão', 'Ano', 'Quilometragem', 'Placa final', 'Preço', 'Status'], ...vehicles.map(vehicle => [
       `${vehicle.brand} ${vehicle.model}`, vehicle.version || '', `${vehicle.year}/${vehicle.model_year}`, vehicle.mileage ? `${vehicle.mileage} km` : '', vehicle.plate_end || '', String(vehicle.price), statusLabels[vehicle.status],
@@ -77,6 +89,7 @@ export function AdminVehicleBoard({ initialVehicles, isAdmin }: { initialVehicle
           <div className="stock-card-title"><div><small>{vehicle.brand}</small><h3>{vehicle.model}</h3>{vehicle.version && <p>{vehicle.version}</p>}</div><strong>{money(vehicle.price)}</strong></div>
           <div className="stock-meta"><span>{vehicle.year}/{vehicle.model_year}</span><span>Placa final: {vehicle.plate_end || '—'}</span></div>
           {vehicle.internal_notes && <p className="stock-note">Anotações internas cadastradas</p>}
+          {isAdmin && vehicle.status === 'available' && <label className="stock-featured"><input type="checkbox" checked={vehicle.featured} disabled={savingId === vehicle.id} onChange={() => toggleFeatured(vehicle)} /> Destaque no site</label>}
           {isAdmin && vehicle.status !== 'sold' ? <label className="stock-status">Status<select value={vehicle.status} disabled={savingId === vehicle.id} onChange={event => changeStatus(vehicle, event.target.value as Vehicle['status'])}><option value="available">Disponível</option><option value="reserved">Reservado</option></select></label> : <p className="stock-status-readonly">Status: <b>{statusLabels[vehicle.status]}</b></p>}
           <div className="stock-actions">{vehicle.status === 'available' && <Link className="thin-link" href={`/admin/vendas/registrar/${vehicle.id}`}>Registrar venda</Link>}{isAdmin && <Link className="thin-link" href={`/admin/veiculos/${vehicle.id}`}>Editar e anotações</Link>}{isAdmin && <button type="button" onClick={() => remove(vehicle)} disabled={savingId === vehicle.id} aria-label={`Excluir ${vehicle.brand} ${vehicle.model}`}><Trash2 size={15} /> Excluir</button>}</div>
         </article>)}</div>
