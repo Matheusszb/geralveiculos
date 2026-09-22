@@ -1,1 +1,24 @@
-import Link from 'next/link';import {AdminSignOut} from './admin-sign-out';export function AdminShell({children}:{children:React.ReactNode}){return <main className="admin"><div className="admin-shell"><aside className="admin-side"><img src="/assets/logo3dsemfundo.png" alt="Geral Veículos"/><nav><Link href="/admin">Dashboard</Link><Link href="/admin/veiculos">Veículos</Link><Link href="/admin/veiculos/novo">Adicionar veículo</Link><Link href="/admin/leads">Leads</Link><Link href="/admin/configuracoes">Configurações</Link><Link href="/">Ver site</Link><AdminSignOut/></nav></aside><section className="admin-main">{children}</section></div></main>}
+'use client';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Menu, X } from 'lucide-react';
+import { useState } from 'react';
+import logo from '@/public/assets/logo3dsemfundo.png';
+import { AdminSignOut } from './admin-sign-out';
+
+const links = [
+  ['Dashboard', '/admin'],
+  ['Veículos', '/admin/veiculos'],
+  ['Adicionar veículo', '/admin/veiculos/novo'],
+  ['Leads', '/admin/leads'],
+  ['Configurações', '/admin/configuracoes'],
+  ['Ver site', '/'],
+];
+
+export function AdminShell({ children }: { children: React.ReactNode }) {
+  const [open, setOpen] = useState(false);
+  return <main className="admin"><div className="admin-shell"><aside className="admin-side">
+    <div className="admin-bar"><Image src={logo} alt="Geral Veículos" /><button className="admin-menu-toggle" aria-label="Abrir menu administrativo" onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</button></div>
+    <nav className={`admin-nav ${open ? 'open' : ''}`}>{links.map(([label, href]) => <Link key={label} href={href} onClick={() => setOpen(false)}>{label}</Link>)}<AdminSignOut /></nav>
+  </aside><section className="admin-main">{children}</section></div></main>;
+}

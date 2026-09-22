@@ -34,3 +34,16 @@
     padding-right: 40px;
   }
 }
+
+.admin-bar { display: block; }
+.admin-menu-toggle { display: none; }
+
+@media (max-width: 900px) {
+  .admin-side { padding: 18px 22px; position: relative; z-index: 20; }
+  .admin-bar { display: flex; align-items: center; justify-content: space-between; }
+  .admin-side .admin-bar img { width: 142px; margin: 0; }
+  .admin-menu-toggle { display: grid; place-items: center; width: 46px; height: 46px; color: #fff; background: transparent; border: 1px solid rgba(255,255,255,.25); }
+  .admin-side nav.admin-nav { display: none; overflow: visible; }
+  .admin-side nav.admin-nav.open { display: flex; position: absolute; top: 82px; left: 0; right: 0; flex-direction: column; padding: 14px 22px 22px; background: #101216; border-top: 1px solid rgba(255,255,255,.12); box-shadow: 0 14px 28px rgba(0,0,0,.25); }
+  .admin-side nav.admin-nav.open a, .admin-side nav.admin-nav.open button { width: 100%; text-align: left; padding: 14px 4px; border-bottom: 1px solid rgba(255,255,255,.08); }
+}
