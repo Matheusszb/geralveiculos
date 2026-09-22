@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Search, Trash2 } from 'lucide-react';
+import { Download, Printer, Search, Trash2 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
@@ -50,8 +50,25 @@ export function AdminVehicleBoard({ initialVehicles, isAdmin }: { initialVehicle
     setSavingId(null);
   }
 
+  function exportCsv() {
+    const rows = [['Veículo', 'Versão', 'Ano', 'Quilometragem', 'Placa final', 'Preço', 'Status'], ...vehicles.map(vehicle => [
+      `${vehicle.brand} ${vehicle.model}`, vehicle.version || '', `${vehicle.year}/${vehicle.model_year}`, vehicle.mileage ? `${vehicle.mileage} km` : '', vehicle.plate_end || '', String(vehicle.price), statusLabels[vehicle.status],
+    ])];
+    const csv = '\uFEFF' + rows.map(row => row.map(value => `"${String(value).replaceAll('"', '""')}"`).join(';')).join('\n');
+    const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' })); const link = document.createElement('a'); link.href = url; link.download = 'estoque-geral-veiculos.csv'; link.click(); URL.revokeObjectURL(url);
+  }
+
+  function printStock() {
+    const escape = (value: string | number | null) => String(value || '—').replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character] || character);
+    const rows = vehicles.map(vehicle => `<tr><td><strong>${escape(`${vehicle.brand} ${vehicle.model}`)}</strong>${vehicle.version ? `<br><small>${escape(vehicle.version)}</small>` : ''}</td><td>${escape(`${vehicle.year}/${vehicle.model_year}`)}</td><td>${escape(vehicle.plate_end)}</td><td>${escape(money(vehicle.price))}</td><td>${escape(statusLabels[vehicle.status])}</td></tr>`).join('');
+    const page = window.open('', '_blank', 'noopener,noreferrer');
+    if (!page) { alert('Permita pop-ups neste navegador para imprimir o estoque.'); return; }
+    page.document.write(`<!doctype html><html lang="pt-BR"><head><title>Estoque — Geral Veículos</title><style>body{font-family:Arial,sans-serif;color:#16181c;padding:28px}h1{margin:0;font-size:28px}p{color:#666;margin:7px 0 22px}table{border-collapse:collapse;width:100%;font-size:12px}th{text-align:left;background:#17191d;color:#fff;padding:11px}td{padding:11px;border-bottom:1px solid #ddd}small{color:#666}@media print{body{padding:0}}</style></head><body><h1>Geral Veículos — Estoque</h1><p>Relatório gerado em ${new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' }).format(new Date())} · ${vehicles.length} veículo(s)</p><table><thead><tr><th>Veículo</th><th>Ano</th><th>Placa final</th><th>Preço</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table></body></html>`);
+    page.document.close(); page.focus(); page.print();
+  }
+
   return <>
-    <label className="stock-search"><Search size={18} /><input value={search} onChange={event => setSearch(event.target.value)} placeholder="Buscar por nome, modelo ou final da placa" /></label>
+    <div className="stock-toolbar"><label className="stock-search"><Search size={18} /><input value={search} onChange={event => setSearch(event.target.value)} placeholder="Buscar por nome, modelo ou final da placa" /></label><div><button className="export-button" onClick={exportCsv}><Download size={16} /> Exportar CSV</button><button className="export-button" onClick={printStock}><Printer size={16} /> Imprimir estoque</button></div></div>
     <div className="stock-board">{columns.map(column => {
       const items = filteredVehicles.filter(vehicle => vehicle.status === column.status);
       return <section className={`stock-column ${column.status}`} key={column.status}>
